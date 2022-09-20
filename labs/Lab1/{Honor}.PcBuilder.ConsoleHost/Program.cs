@@ -33,7 +33,7 @@ namespace Lab1
                 Console.WriteLine("Menu Options:");
                 Console.WriteLine("1) Quit");
                 Console.WriteLine("2) New Order");
-                Console.WriteLine("3) View Order");
+                //Console.WriteLine("3) View Order");
 
                 menuOption = Console.ReadLine();
 
@@ -105,6 +105,7 @@ namespace Lab1
                 if (isProcessorValid == false)
                 {
                     Console.WriteLine("Invalid Input. Try again.");
+                    Console.WriteLine();
                 }
             } while (isProcessorValid == false);
 
