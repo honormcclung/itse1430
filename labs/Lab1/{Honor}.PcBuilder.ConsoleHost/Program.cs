@@ -32,16 +32,20 @@ namespace Lab1
                 Console.WriteLine("Enter Menu Option.");
                 Console.WriteLine("Menu Options:");
                 Console.WriteLine("1) Quit");
+                Console.WriteLine("2) New Order");
 
                 menuOption = Console.ReadLine();
 
-                if (menuOption != "1")
+                if (menuOption != "1" && menuOption != "2")
                 {
                     Console.WriteLine("Error: Invalid Input");
                 }
-            } while (menuOption != "1");
+            } while (menuOption != "1" && menuOption != "2");
 
-            QuitProgram();
+            if (menuOption == "1")
+            {
+                QuitProgram();
+            }
         }
 
         static void QuitProgram ()
