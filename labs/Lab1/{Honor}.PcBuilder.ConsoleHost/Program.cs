@@ -26,8 +26,8 @@ namespace Lab1
 
             do
             {
-                Console.WriteLine("Cart Total: $" + cartTotal);
                 Console.WriteLine();
+                Console.WriteLine("Cart Total: $" + cartTotal);
 
                 Console.WriteLine("Enter Menu Option.");
                 Console.WriteLine("Menu Options:");
