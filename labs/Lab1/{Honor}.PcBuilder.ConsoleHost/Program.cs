@@ -6,6 +6,8 @@ namespace Lab1
     {
         static void Main ( string[] args )
         {
+            int cartTotal = 0;
+
             Console.WriteLine("Name: Honor");
             Console.WriteLine("Class: ISTE 1430");
             Console.WriteLine("Date: 9/19/2022");
@@ -21,7 +23,6 @@ namespace Lab1
 
         static void DisplayMenuOptions ()
         {
-            int cartTotal = 0;
             String menuOption = "";
 
             do
@@ -97,7 +98,7 @@ namespace Lab1
                     if (chosenProcessor.Equals(processors[currProcessor]))
                     {
                         processorPrice = processorPrices[currProcessor];
-                        cartTotal = cartTotal + processorPrices[currProcessor];
+                        cartTotal = EditPrice(processorPrices[currProcessor]);
                         isProcessorValid = true;
                     }
                 }
@@ -127,7 +128,7 @@ namespace Lab1
                     if (chosenMemory.Equals(memory[currMemory]))
                     {
                         memoryPrice = memoryPrices[currMemory];
-                        cartTotal = cartTotal + memoryPrices[currMemory];
+                        cartTotal = editPrice(memoryPrices[currMemory]);
                         isMemoryValid = true;
                     }
                 }
@@ -141,6 +142,12 @@ namespace Lab1
             Console.WriteLine();
             Console.WriteLine("Cart Total: $" + cartTotal);
 
+        }
+
+        static int EditPrice (priceAdded)
+        {
+            cartTotal = cartTotal + priceAdded;
+            return cartTotal;
         }
 
         /*
