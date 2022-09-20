@@ -23,7 +23,6 @@ namespace Lab1
         {
             int cartTotal = 0;
             String menuOption = "";
-            Boolean isQuitting = false;
 
             do
             {
@@ -37,6 +36,9 @@ namespace Lab1
                 menuOption = Console.ReadLine();
             } while (menuOption != "Quit" && menuOption != "quit");
 
+            QuitProgram();
+
+            /*
             if (menuOption == "Quit")
             {
                 Console.WriteLine("Are you sure you want to quit? (Enter Yes or No)");
@@ -57,6 +59,20 @@ namespace Lab1
                         menuOption = Console.ReadLine();
                     } while (menuOption != "Quit" && menuOption != "quit");
                 }
+            }
+            */
+        }
+
+        static void QuitProgram ()
+        {
+            Console.WriteLine("Are you sure you want to quit? (Enter Yes or No)");
+
+            if (Console.ReadLine() == "No")
+            {
+                Console.WriteLine("User picked no");
+            } else
+            {
+                Console.WriteLine("User picked yes");
             }
         }
     }
