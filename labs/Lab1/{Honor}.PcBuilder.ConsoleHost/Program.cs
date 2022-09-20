@@ -33,6 +33,7 @@ namespace Lab1
                 Console.WriteLine("Menu Options:");
                 Console.WriteLine("1) Quit");
                 Console.WriteLine("2) New Order");
+                Console.WriteLine("3) View Order");
 
                 menuOption = Console.ReadLine();
 
@@ -68,7 +69,9 @@ namespace Lab1
         {
             double cartTotal = 0;
             String chosenProcessor = "";
+            double processorPrice = 0;
             String chosenMemory = "";
+            double memoryPrice = 0;
             Boolean isProcessorValid = false;
             Boolean isMemoryValid = false;
 
@@ -93,6 +96,7 @@ namespace Lab1
                 {
                     if (chosenProcessor.Equals(processors[currProcessor]))
                     {
+                        processorPrice = processorPrices[currProcessor];
                         cartTotal = cartTotal + processorPrices[currProcessor];
                         isProcessorValid = true;
                     }
@@ -121,6 +125,7 @@ namespace Lab1
                 {
                     if (chosenMemory.Equals(memory[currMemory]))
                     {
+                        memoryPrice = memoryPrices[currMemory];
                         cartTotal = cartTotal + memoryPrices[currMemory];
                         isMemoryValid = true;
                     }
@@ -135,6 +140,14 @@ namespace Lab1
             Console.WriteLine();
             Console.WriteLine("Cart Total: $" + cartTotal);
 
+        }
+
+        static void viewOrder (chosenProcessor, processorPrice, chosenMemory, memoryPrice, cartTotal)
+        {
+            Console.WriteLine("Processor: " + chosenProcessor + " $" + processorPrice);
+            Console.WriteLine("Memory: " + chosenMemory + " $" + memoryPrice);
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("Total: $" + cartTotal);
         }
     }
 }
