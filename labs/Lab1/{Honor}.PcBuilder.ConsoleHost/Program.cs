@@ -14,12 +14,12 @@ namespace Lab1
             DisplayMenuOptions();
         }
 
-        static void Test()
+        static void Test ()
         {
             Console.WriteLine("Test Complete");
         }
 
-        static void DisplayMenuOptions()
+        static void DisplayMenuOptions ()
         {
             int cartTotal = 0;
             String menuOption = "";
@@ -34,33 +34,14 @@ namespace Lab1
                 Console.WriteLine("1) Quit");
 
                 menuOption = Console.ReadLine();
-            } while (menuOption != "Quit" && menuOption != "quit");
+
+                if (menuOption != "1")
+                {
+                    Console.WriteLine("Error: Invalid Input");
+                }
+            } while (menuOption != "1");
 
             QuitProgram();
-
-            /*
-            if (menuOption == "Quit")
-            {
-                Console.WriteLine("Are you sure you want to quit? (Enter Yes or No)");
-                if (Console.ReadLine() == "No")
-                {
-                    isQuitting = true;
-                } else
-                {
-                    do
-                    {
-                        Console.WriteLine("Cart Total: $" + cartTotal);
-                        Console.WriteLine();
-
-                        Console.WriteLine("Enter Menu Option.");
-                        Console.WriteLine("Menu Options:");
-                        Console.WriteLine("1) Quit");
-
-                        menuOption = Console.ReadLine();
-                    } while (menuOption != "Quit" && menuOption != "quit");
-                }
-            }
-            */
         }
 
         static void QuitProgram ()
@@ -69,10 +50,10 @@ namespace Lab1
 
             if (Console.ReadLine() == "No")
             {
-                Console.WriteLine("User picked no");
+                DisplayMenuOptions();
             } else
             {
-                Console.WriteLine("User picked yes");
+                Console.WriteLine("Program Quit.");
             }
         }
     }
