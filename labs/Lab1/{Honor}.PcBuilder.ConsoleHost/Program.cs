@@ -142,6 +142,7 @@ namespace Lab1
 
         }
 
+        /*
         static void viewOrder (chosenProcessor, processorPrice, chosenMemory, memoryPrice, cartTotal)
         {
             Console.WriteLine("Processor: " + chosenProcessor + " $" + processorPrice);
@@ -149,5 +150,6 @@ namespace Lab1
             Console.WriteLine("-------------------------");
             Console.WriteLine("Total: $" + cartTotal);
         }
+        */
     }
 }
