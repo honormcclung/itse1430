@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Lab1
@@ -19,7 +20,7 @@ namespace Lab1
             String chosenOption;
             Boolean hasMadeOrder = false;
             Boolean isQuitting = false;
-            double cartTotal = 0;
+            //double cartTotal = 0;
 
             String[] processors = {"AMD Ryzen 9 5900X", "AMD Ryzen 7 5700X", "AMD Ryzen 5 5600X", "Intel i9-12900K", "Intel i7-12700K", "Intel i5-12600K" };
             double[] processorPrices = {1410, 1270, 1200, 1590, 1400, 1280};
@@ -38,7 +39,7 @@ namespace Lab1
 
             do
             {
-                chosenOption = ChooseMenuOption(cartTotal, hasMadeOrder, computerParts);
+                chosenOption = ChooseMenuOption(/*cartTotal, */hasMadeOrder, computerParts);
 
                 if (chosenOption == "1")
                 {
@@ -48,11 +49,11 @@ namespace Lab1
                     }
                 } else if (chosenOption == "2")
                 {
-                    NewOrder(computerParts, cartTotal, processors, processorPrices, memory, memoryPrices, primaryStorageOptions,
+                    NewOrder(computerParts,/* cartTotal,*/ processors, processorPrices, memory, memoryPrices, primaryStorageOptions,
                              primaryStoragePrices, secondaryStorageOptions, secondaryStoragePrices, graphicsCardOptions, 
                              graphicsCardPrices, operatingSystemOptions, operatingSystemPrices);
                     hasMadeOrder = true;
-                    cartTotal = Convert.ToDouble(computerParts.Last());
+                    //cartTotal = Convert.ToDouble(computerParts.Last());
                 } else if (chosenOption == "3")
                 {
                     ViewOrder(computerParts, hasMadeOrder);
@@ -61,26 +62,29 @@ namespace Lab1
                     if (ClearOrder(computerParts) == true)
                     {
                         hasMadeOrder = false;
-                        cartTotal = 0;
+                        //cartTotal = 0;
                     }
                 } else if (chosenOption == "5")
                 {
                     computerParts = ModifyOrder(computerParts, hasMadeOrder, processors, processorPrices, memory, memoryPrices, primaryStorageOptions,
                                                 primaryStoragePrices, secondaryStorageOptions, secondaryStoragePrices, graphicsCardOptions, graphicsCardPrices,
-                                                operatingSystemOptions, operatingSystemPrices, cartTotal);
+                                                operatingSystemOptions, operatingSystemPrices/*, cartTotal*/);
                 }
             } while (isQuitting == false);
 
         }
 
-        static void DisplayMenuOptions (double cartTotal, Boolean hasMadeOrder, List<String> computerParts)
+        static void DisplayMenuOptions (/*double cartTotal, */Boolean hasMadeOrder, List<String> computerParts)
         {
             Console.WriteLine();
             if (hasMadeOrder == true)
             {
-                cartTotal = Convert.ToDouble(computerParts.Last());
+                Console.WriteLine("Cart Total: $" + CalculatePrice(computerParts, hasMadeOrder));
+                //cartTotal = Convert.ToDouble(computerParts.Last());
+            } else
+            {
+                Console.WriteLine("Cart Total: $" + CalculatePrice(computerParts, hasMadeOrder));
             }
-            Console.WriteLine("Cart Total: $" + cartTotal);
             Console.WriteLine("----------------------");
             Console.WriteLine("Enter Menu Option: ");
             Console.WriteLine();
@@ -92,13 +96,28 @@ namespace Lab1
             Console.WriteLine("5) Modify Order");
         }
 
-        static String ChooseMenuOption (double cartTotal, Boolean hasMadeOrder, List<String> computerParts)
+        static double CalculatePrice (List<String> computerParts, Boolean hasMadeOrder)
+        {
+            double price = 0;
+
+            if (hasMadeOrder == true)
+            {
+                for (int partPrice = 1; partPrice <= computerParts.Count; partPrice += 2)
+                {
+                    price += Convert.ToDouble(computerParts[partPrice]);
+                }
+            } 
+
+            return price;
+        }
+
+        static String ChooseMenuOption (/*double cartTotal, */Boolean hasMadeOrder, List<String> computerParts)
         {
             string menuOption; 
 
             do
             {
-                DisplayMenuOptions(cartTotal, hasMadeOrder, computerParts);
+                DisplayMenuOptions(/*cartTotal,*/ hasMadeOrder, computerParts);
                 menuOption = Console.ReadLine();
                     if (menuOption != "1" && menuOption != "2" && menuOption != "3" && menuOption != "4" && menuOption != "5")
                     {
@@ -142,27 +161,27 @@ namespace Lab1
 
         }
 
-        static List<String> NewOrder (List<String> computerParts, double cartTotal, String[] processors, double[] processorPrices, 
+        static List<String> NewOrder (List<String> computerParts /*, double cartTotal*/, String[] processors, double[] processorPrices, 
                                       String[] memory, double[] memoryPrices, String[] primaryStorageOptions, double[] primaryStoragePrices,
                                       String[] secondaryStorageOptions, double[] secondaryStoragePrices, String[] graphicsCardOptions,
                                       double[] graphicsCardPrices, String[] operatingSystemOptions, double[] operatingSystemPrices)
         {
-            cartTotal = 0;
+            //cartTotal = 0;
 
             computerParts.AddRange(ChooseProcessor(processors, processorPrices));
-            cartTotal = cartTotal + Convert.ToDouble(computerParts[1]);
+            //cartTotal = cartTotal + Convert.ToDouble(computerParts[1]);
             computerParts.AddRange(ChooseMemory(memory, memoryPrices));
-            cartTotal = cartTotal + Convert.ToDouble(computerParts[3]);
+            //cartTotal = cartTotal + Convert.ToDouble(computerParts[3]);
             computerParts.AddRange(ChoosePrimaryStroage(primaryStorageOptions, primaryStoragePrices));
-            cartTotal = cartTotal + Convert.ToDouble(computerParts[5]);
+            //cartTotal = cartTotal + Convert.ToDouble(computerParts[5]);
             computerParts.AddRange(ChooseSecondaryStroage(secondaryStorageOptions, secondaryStoragePrices));
-            cartTotal = cartTotal + Convert.ToDouble(computerParts[7]);
+            //cartTotal = cartTotal + Convert.ToDouble(computerParts[7]);
             computerParts.AddRange(ChooseGraphicsCard(graphicsCardOptions, graphicsCardPrices));
-            cartTotal = cartTotal + Convert.ToDouble(computerParts[9]);
+            //cartTotal = cartTotal + Convert.ToDouble(computerParts[9]);
             computerParts.AddRange(ChooseOperatingSystem(operatingSystemOptions, operatingSystemPrices));
-            cartTotal = cartTotal + Convert.ToDouble(computerParts[11]);
+            //cartTotal = cartTotal + Convert.ToDouble(computerParts[11]);
 
-            computerParts.Add(cartTotal.ToString());
+            //computerParts.Add(cartTotal.ToString());
 
             ViewOrder(computerParts, true);
 
@@ -181,7 +200,8 @@ namespace Lab1
                 Console.WriteLine("Graphics Card:    " + "{0,-25} {1,5}", computerParts[8], computerParts[9]);
                 Console.WriteLine("Operating System: " + "{0,-25} {1,5}", computerParts[10], computerParts[11]);
                 Console.WriteLine("-------------------------------------------------------");
-                Console.WriteLine("Total:                                   $" + computerParts.Last());
+                //Console.WriteLine("Total:                                   $" + computerParts.Last());
+                Console.WriteLine("Total:                                    $" + CalculatePrice(computerParts, hasMadeOrder));
                 
             } else
             {
@@ -193,7 +213,7 @@ namespace Lab1
         static List<String> ModifyOrder (List<String> computerParts, Boolean hasMadeOrder, String[] processors, double[] processorPrices,
                                          String[] memory, double[] memoryPrices, String[] primaryMemoryOptions, double[] primaryMemoryPrices,
                                          String[] secondaryMemoryOptions, double[] secondaryMemoryPrices, String[] graphicsCardOptions, 
-                                         double[] graphicsCardPrices, String[] operatingSystemOptions, double[] operatingSystemPrices, double cartTotal)
+                                         double[] graphicsCardPrices, String[] operatingSystemOptions, double[] operatingSystemPrices /*double cartTotal*/)
         {
             String menuOption; 
             List<String> processorInfo = new List<String>();
@@ -233,60 +253,60 @@ namespace Lab1
                     Console.WriteLine("Enter New Processor:");
                     processorInfo = ChooseProcessor(processors, processorPrices);
                     computerParts[0] = processorInfo[0];
-                    cartTotal = cartTotal - Convert.ToDouble(computerParts[1]);
+                    //cartTotal = cartTotal - Convert.ToDouble(computerParts[1]);
                     computerParts[1] = processorInfo[1];
-                    cartTotal = cartTotal + Convert.ToDouble(processorInfo[1]);
-                    computerParts[12] = cartTotal.ToString();
+                    //cartTotal = cartTotal + Convert.ToDouble(processorInfo[1]);
+                    //computerParts[12] = cartTotal.ToString();
                 } else if (menuOption == "2")
                 {
                     Console.WriteLine();
                     Console.WriteLine("Enter New Memory:");
                     memoryInfo = ChooseMemory(memory, memoryPrices);
                     computerParts[2] = memoryInfo[0];
-                    cartTotal = cartTotal - Convert.ToDouble(computerParts[3]);
+                    //cartTotal = cartTotal - Convert.ToDouble(computerParts[3]);
                     computerParts[3] = memoryInfo[1];
-                    cartTotal = cartTotal + Convert.ToDouble(computerParts[3]);
-                    computerParts[12] = cartTotal.ToString();
+                    //cartTotal = cartTotal + Convert.ToDouble(computerParts[3]);
+                    //computerParts[12] = cartTotal.ToString();
                 } else if (menuOption == "3")
                 {
                     Console.WriteLine();
                     Console.WriteLine("Enter New Primary Storage:");
                     primaryStorageInfo = ChoosePrimaryStroage(primaryMemoryOptions, primaryMemoryPrices);
                     computerParts[4] = primaryStorageInfo[0];
-                    cartTotal = cartTotal - Convert.ToDouble(computerParts[5]);
+                    //cartTotal = cartTotal - Convert.ToDouble(computerParts[5]);
                     computerParts[5] = primaryStorageInfo[1];
-                    cartTotal = cartTotal + Convert.ToDouble(computerParts[5]);
-                    computerParts[12] = cartTotal.ToString();
+                    //cartTotal = cartTotal + Convert.ToDouble(computerParts[5]);
+                    //computerParts[12] = cartTotal.ToString();
                 } else if (menuOption == "4")
                 {
                     Console.WriteLine();
                     Console.WriteLine("Enter New Secondary Storage:");
                     secondaryStorageInfo = ChooseSecondaryStroage(secondaryMemoryOptions, secondaryMemoryPrices);
                     computerParts[6] = secondaryStorageInfo[0];
-                    cartTotal = cartTotal - Convert.ToDouble(computerParts[7]);
+                    //cartTotal = cartTotal - Convert.ToDouble(computerParts[7]);
                     computerParts[7] = secondaryStorageInfo[1];
-                    cartTotal = cartTotal + Convert.ToDouble(computerParts[7]);
-                    computerParts[12] = cartTotal.ToString();
+                    //cartTotal = cartTotal + Convert.ToDouble(computerParts[7]);
+                    //computerParts[12] = cartTotal.ToString();
                 } else if (menuOption == "5")
                 {
                     Console.WriteLine();
                     Console.WriteLine("Enter New Graphics Card:");
                     graphicsCardInfo = ChooseGraphicsCard(graphicsCardOptions, graphicsCardPrices);
                     computerParts[8] = graphicsCardInfo[0];
-                    cartTotal = cartTotal - Convert.ToDouble(computerParts[9]);
+                    //cartTotal = cartTotal - Convert.ToDouble(computerParts[9]);
                     computerParts[9] = graphicsCardInfo[1];
-                    cartTotal = cartTotal + Convert.ToDouble(computerParts[9]);
-                    computerParts[12] = cartTotal.ToString();
+                    //cartTotal = cartTotal + Convert.ToDouble(computerParts[9]);
+                    //computerParts[12] = cartTotal.ToString();
                 } else if (menuOption == "6")
                 {
                     Console.WriteLine();
                     Console.WriteLine("Enter New Operating System:");
                     operatingSystemInfo = ChooseOperatingSystem(operatingSystemOptions, operatingSystemPrices);
                     computerParts[10] = operatingSystemInfo[0];
-                    cartTotal = cartTotal - Convert.ToDouble(computerParts[11]);
+                    //cartTotal = cartTotal - Convert.ToDouble(computerParts[11]);
                     computerParts[11] = operatingSystemInfo[1];
-                    cartTotal = cartTotal + Convert.ToDouble(computerParts[11]);
-                    computerParts[12] = cartTotal.ToString();
+                    //cartTotal = cartTotal + Convert.ToDouble(computerParts[11]);
+                    //computerParts[12] = cartTotal.ToString();
                 }
             } else
             {
