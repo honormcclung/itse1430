@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Lab1
 {
@@ -6,69 +8,114 @@ namespace Lab1
     {
         static void Main ( string[] args )
         {
-            int cartTotal = 0;
+            String chosenOption;
+            Boolean hasMadeOrder = false;
+            Boolean isQuitting = false;
+            double cartTotal = 0;
+
+            List<String> computerParts = new List<String>();
 
             Console.WriteLine("Name: Honor");
             Console.WriteLine("Class: ISTE 1430");
             Console.WriteLine("Date: 9/19/2022");
 
-            Test();
-            DisplayMenuOptions();
+            do
+            {
+                chosenOption = ChooseMenuOption(cartTotal);
+
+                if (chosenOption == "1")
+                {
+                    if (QuitProgram() == true)
+                    {
+                        isQuitting = true;
+                    }
+                } else if (chosenOption == "2")
+                {
+                    newOrder(computerParts, cartTotal);
+                    hasMadeOrder = true;
+                    cartTotal = Convert.ToDouble(computerParts.Last());
+                } else if (chosenOption == "3")
+                {
+                    ViewOrder(computerParts, hasMadeOrder);
+                } else if (chosenOption == "4")
+                {
+                    if (ClearOrder(computerParts) == true)
+                    {
+                        hasMadeOrder = false;
+                        cartTotal = 0;
+                    }
+
+                }
+            } while (isQuitting == false);
+
         }
 
-        static void Test ()
+        static void DisplayMenuOptions (double cartTotal)
         {
-            Console.WriteLine("Test Complete");
+            Console.WriteLine();
+            Console.WriteLine("Cart Total: $" + cartTotal);
+            Console.WriteLine("----------------------");
+            Console.WriteLine("Enter Menu Option: ");
+            Console.WriteLine();
+            Console.WriteLine("Menu Options:");
+            Console.WriteLine("1) Quit");
+            Console.WriteLine("2) New Order");
+            Console.WriteLine("3) View Order");
+            Console.WriteLine("4) Clear Order");
         }
 
-        static void DisplayMenuOptions ()
+        static String ChooseMenuOption (double cartTotal)
         {
-            String menuOption = "";
+            string menuOption; 
 
             do
             {
-                Console.WriteLine();
-                Console.WriteLine("Cart Total: $" + cartTotal);
-
-                Console.WriteLine("Enter Menu Option.");
-                Console.WriteLine("Menu Options:");
-                Console.WriteLine("1) Quit");
-                Console.WriteLine("2) New Order");
-                //Console.WriteLine("3) View Order");
-
+                DisplayMenuOptions(cartTotal);
                 menuOption = Console.ReadLine();
+                    if (menuOption != "1" && menuOption != "2" && menuOption != "3" && menuOption != "4")
+                    {
+                        Console.WriteLine("Error: Invalid Input");
+                    } 
+            } while (menuOption != "1" && menuOption != "2" && menuOption != "3" && menuOption != "4");
 
-                if (menuOption != "1" && menuOption != "2")
-                {
-                    Console.WriteLine("Error: Invalid Input");
-                }
-            } while (menuOption != "1" && menuOption != "2");
-
-            if (menuOption == "1")
-            {
-                QuitProgram();
-            } else if (menuOption == "2")
-            {
-                newOrder();
-            }
+            return  menuOption;
         }
 
-        static void QuitProgram ()
+        static Boolean QuitProgram ()
         {
+            Boolean isQuitting = true; 
+
             Console.WriteLine("Are you sure you want to quit? (Enter Yes or No)");
 
             if (Console.ReadLine() == "No")
             {
-                DisplayMenuOptions();
+                isQuitting = false;
             } else
             {
                 Console.WriteLine("Program Quit.");
+                Console.ReadLine();
             }
+
+            return isQuitting;
         }
 
-        static void newOrder ()
+        static Boolean ClearOrder (List<String> computerParts)
         {
-            double cartTotal = 0;
+            Console.WriteLine("Are you sure you want to clear your order? (Enter Yes or No)");
+
+            if (Console.ReadLine() == "Yes")
+            {
+                computerParts.Clear();
+                return true;
+            } else
+            {
+                return false;
+            }
+
+        }
+
+        static List<String> newOrder (List<String> computerParts, double cartTotal)
+        {
             String chosenProcessor = "";
             double processorPrice = 0;
             String chosenMemory = "";
@@ -92,13 +139,16 @@ namespace Lab1
             {
                 Console.WriteLine("Select a processor:");
                 chosenProcessor = Console.ReadLine();
+                //computerParts.Add(chosenProcessor);
 
                 for (int currProcessor = 0; currProcessor < processors.Length; currProcessor++)
                 {
                     if (chosenProcessor.Equals(processors[currProcessor]))
                     {
+                        computerParts.Add(chosenProcessor);
                         processorPrice = processorPrices[currProcessor];
-                        cartTotal = EditPrice(processorPrices[currProcessor]);
+                        computerParts.Add(processorPrice.ToString());
+                        cartTotal = AddToTotal(cartTotal,processorPrices[currProcessor]);
                         isProcessorValid = true;
                     }
                 }
@@ -109,7 +159,6 @@ namespace Lab1
                     Console.WriteLine();
                 }
             } while (isProcessorValid == false);
-
 
             Console.WriteLine("{0,-20} {1,5}\n", "Memory", "Price");
 
@@ -122,42 +171,55 @@ namespace Lab1
             {
                 Console.WriteLine("Select a memory option:");
                 chosenMemory = Console.ReadLine();
+                //computerParts.Add(chosenMemory);
 
                 for (int currMemory = 0; currMemory < memory.Length; currMemory++)
                 {
                     if (chosenMemory.Equals(memory[currMemory]))
                     {
+                        computerParts.Add(chosenMemory);
                         memoryPrice = memoryPrices[currMemory];
-                        cartTotal = editPrice(memoryPrices[currMemory]);
+                        computerParts.Add(memoryPrice.ToString());
+                        cartTotal = AddToTotal(cartTotal, memoryPrices[currMemory]);
                         isMemoryValid = true;
                     }
                 }
 
-                if (isMemoryValid == false)
-                {
+                if (isMemoryValid == false)    
+                { 
                     Console.WriteLine("Invalid Input. Try again.");
                 }
             } while (isMemoryValid == false);
 
-            Console.WriteLine();
-            Console.WriteLine("Cart Total: $" + cartTotal);
+            computerParts.Add(cartTotal.ToString());
+
+            ViewOrder(computerParts, true);
+            
+            return computerParts;
 
         }
-
-        static int EditPrice (priceAdded)
+       
+        static double AddToTotal (double cartTotal, double priceToAdd)
         {
-            cartTotal = cartTotal + priceAdded;
+            cartTotal = cartTotal + priceToAdd;
             return cartTotal;
         }
-
-        /*
-        static void viewOrder (chosenProcessor, processorPrice, chosenMemory, memoryPrice, cartTotal)
+          
+        static void ViewOrder (List<String> computerParts, Boolean hasMadeOrder)
         {
-            Console.WriteLine("Processor: " + chosenProcessor + " $" + processorPrice);
-            Console.WriteLine("Memory: " + chosenMemory + " $" + memoryPrice);
-            Console.WriteLine("-------------------------");
-            Console.WriteLine("Total: $" + cartTotal);
+            if (hasMadeOrder == true)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Processor:   " + computerParts[0] + "    $" + computerParts[1]);
+                Console.WriteLine("Memory:      " + computerParts[3] + "    $" + computerParts[4]);
+                Console.WriteLine("------------------------");
+                Console.WriteLine("Total:       $" + computerParts.Last());
+            } else
+            {
+                Console.WriteLine();
+                Console.WriteLine("No Order.");
+            }
         }
-        */
+        
     }
 }
