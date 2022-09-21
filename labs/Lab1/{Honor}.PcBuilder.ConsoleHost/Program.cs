@@ -211,9 +211,9 @@ namespace Lab1
             {
                 Console.WriteLine();
                 Console.WriteLine("Processor:   " + computerParts[0] + "    $" + computerParts[1]);
-                Console.WriteLine("Memory:      " + computerParts[3] + "    $" + computerParts[4]);
-                Console.WriteLine("------------------------");
-                Console.WriteLine("Total:       $" + computerParts.Last());
+                Console.WriteLine("Memory:      " + computerParts[2] + "              $" + computerParts[3]);
+                Console.WriteLine("----------------------------------------");
+                Console.WriteLine("Total:                         $" + computerParts.Last());
             } else
             {
                 Console.WriteLine();
