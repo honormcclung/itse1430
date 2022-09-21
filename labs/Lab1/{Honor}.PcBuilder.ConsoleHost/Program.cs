@@ -1,4 +1,8 @@
-﻿using System;
+﻿//Honor McClung
+//ITSE 1430
+//Date Due: 9/21/2022
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -143,6 +147,8 @@ namespace Lab1
                                       String[] secondaryStorageOptions, double[] secondaryStoragePrices, String[] graphicsCardOptions,
                                       double[] graphicsCardPrices, String[] operatingSystemOptions, double[] operatingSystemPrices)
         {
+            cartTotal = 0;
+
             computerParts.AddRange(ChooseProcessor(processors, processorPrices));
             cartTotal = cartTotal + Convert.ToDouble(computerParts[1]);
             computerParts.AddRange(ChooseMemory(memory, memoryPrices));
