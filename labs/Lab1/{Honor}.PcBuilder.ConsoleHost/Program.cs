@@ -186,7 +186,7 @@ namespace Lab1
                 Console.WriteLine("Graphics Card:    " + "{0,-25} {1,5}", computerParts[8], computerParts[9]);
                 Console.WriteLine("Operating System: " + "{0,-25} {1,5}", computerParts[10], computerParts[11]);
                 Console.WriteLine("-------------------------------------------------------");
-                Console.WriteLine("Total:                                    $" + CalculatePrice(computerParts, hasMadeOrder));
+                Console.WriteLine("Total:                                    $/n" + CalculatePrice(computerParts, hasMadeOrder));
                 
             } else
             {
@@ -211,6 +211,7 @@ namespace Lab1
             {
                 do
                 {
+                    Console.WriteLine();
                     Console.WriteLine("Current Order:");
                     ViewOrder(computerParts, true);
                     Console.WriteLine();
@@ -222,12 +223,13 @@ namespace Lab1
                     Console.WriteLine("5) Modify Graphics Gard");
                     Console.WriteLine("6) Modify Operating System");
                     Console.WriteLine("7) Return to Menu");
+                    Console.WriteLine();
 
                     menuOption = Console.ReadLine();
                     if (menuOption != "1" && menuOption != "2" && menuOption != "3" && menuOption != "4" && menuOption != "5" && menuOption != "6"
                         && menuOption != "7")
                     {
-                        Console.WriteLine("Error: Invalid Input");
+                        Console.WriteLine("Error: Invalid Input/n");
                     } 
                 } while (menuOption != "1" && menuOption != "2" && menuOption != "3" && menuOption != "4" && menuOption != "5" && menuOption != "6"
                          && menuOption != "7");
@@ -278,7 +280,7 @@ namespace Lab1
             } else
             {
                 Console.WriteLine();
-                Console.WriteLine("No Order.");
+                Console.WriteLine("No Order./n");
             }
             return computerParts;
         }
@@ -291,6 +293,7 @@ namespace Lab1
             double processorPrice = 0;
             Boolean isProcessorValid = false;
 
+            Console.WriteLine();
             Console.WriteLine("{0,-20} {1,5}\n", "Processor", "Price");
 
             for (int currentProcessor = 0; currentProcessor < processors.Length; currentProcessor++)
@@ -300,6 +303,7 @@ namespace Lab1
 
             do
             {
+                Console.WriteLine();
                 Console.WriteLine("Select a processor:");
                 chosenProcessor = Console.ReadLine();
 
@@ -333,6 +337,7 @@ namespace Lab1
             double memoryPrice = 0;
             Boolean isMemoryValid = false;
 
+            Console.WriteLine();
             Console.WriteLine("{0,-20} {1,5}\n", "Memory", "Price");
 
             for (int currentMemory = 0; currentMemory < memory.Length; currentMemory++)
@@ -342,6 +347,7 @@ namespace Lab1
 
             do
             {
+                Console.WriteLine();
                 Console.WriteLine("Select a memory option:");
                 chosenMemory = Console.ReadLine();
 
@@ -374,6 +380,7 @@ namespace Lab1
             double primaryStoragePrice = 0;
             Boolean isPrimaryStorageValid = false;
 
+            Console.WriteLine();
             Console.WriteLine("{0,-20} {1,5}\n", "Primary Storage", "Price");
 
             for (int currentOption = 0; currentOption < primaryStorageOptions.Length; currentOption++)
@@ -383,6 +390,7 @@ namespace Lab1
 
             do
             {
+                Console.WriteLine();
                 Console.WriteLine("Select a primary storage option:");
                 chosenPrimaryStorage = Console.ReadLine();
 
@@ -415,6 +423,7 @@ namespace Lab1
             double secondaryStoragePrice = 0;
             Boolean isSecondaryStorageValid = false;
 
+            Console.WriteLine();
             Console.WriteLine("{0,-20} {1,5}\n", "Secondary Storage", "Price");
 
             for (int currentOption = 0; currentOption < secondaryStorageOptions.Length; currentOption++)
@@ -424,6 +433,7 @@ namespace Lab1
 
             do
             {
+                Console.WriteLine();
                 Console.WriteLine("Select a secondary storage option:");
                 chosenSecondaryStorage = Console.ReadLine();
 
@@ -456,6 +466,7 @@ namespace Lab1
             double graphicsCardPrice = 0;
             Boolean isGraphicsCardValid = false;
 
+            Console.WriteLine();
             Console.WriteLine("{0,-20} {1,5}\n", "Graphics Card", "Price");
 
             for (int currentOption = 0; currentOption < graphicsCardOptions.Length; currentOption++)
@@ -465,6 +476,7 @@ namespace Lab1
 
             do
             {
+                Console.WriteLine();
                 Console.WriteLine("Select a graphics card:");
                 chosenGraphicsCard = Console.ReadLine();
 
@@ -497,6 +509,7 @@ namespace Lab1
             double operatingSystemPrice = 0;
             Boolean isOperatingSystemValid = false;
 
+            Console.WriteLine();
             Console.WriteLine("{0,-20} {1,5}\n", "Operating System", "Price");
 
             for (int currentOption = 0; currentOption < operatingSystemOptions.Length; currentOption++)
@@ -506,6 +519,7 @@ namespace Lab1
 
             do
             {
+                Console.WriteLine();
                 Console.WriteLine("Select an Operating System:");
                 chosenOperatingSytem = Console.ReadLine();
 
