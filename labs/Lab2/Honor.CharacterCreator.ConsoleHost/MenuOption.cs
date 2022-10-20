@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 /// <summary>Defines the menu options.</summary>
 public enum MenuOption
 {
-    Quit = 1,
+    Quit = 1//,
 
-    NewCharacter,
-    ViewCharacter,
-    EditCharacter,
-    DeleteCharacter
+    //NewOrder,
+    //ViewOrder,
+    //ClearOrder,
+    //ModifyOrder,
 }
